@@ -4,7 +4,7 @@ extends Spatial
 var down_vel= 3
 var up_vel = 4
 var bajar = false
-var pos = 0
+var pos = 7
 
 onready var cortina = get_node("Cort") 
 
