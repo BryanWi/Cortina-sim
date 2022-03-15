@@ -8,6 +8,9 @@ var pos = 7
 
 var state = 0
 
+signal start_timer
+signal stop_timer
+
 onready var cortina = get_node("Cort") 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,9 +24,12 @@ func _process(delta):
 	
 	if state==-1:
 		mover(-up_vel, delta)
+		
+		emit_signal("stop_timer")
 	elif state == 0:
 		pass #return
 	elif state ==1:
+		
 		mover(down_vel,delta)
 	
 	if Input.is_action_pressed("ui_down"):
@@ -40,11 +46,13 @@ func mover(vel,delta):
 	#Control para no subir más
 	
 	pos += vel*delta
+	
 	if pos>=7:
 		pos=7
 		return
 	elif pos<0:
 		pos=0
+		emit_signal("start_timer")
 		return
 	print(pos)
 	trasladar(pos)
@@ -56,7 +64,10 @@ func trasladar(var size:float):
 	var y_scale = float(size/7)
 	self.scale = Vector3(1,y_scale,1)
 	self.translation = Vector3(0,7-size,0)
-	pass
+	
 
 func changeState (stat:int):
 	state = stat
+
+func timeOut():
+	state = 1

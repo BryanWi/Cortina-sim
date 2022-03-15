@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://font/Roboto-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Objetos/Counter.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[node name="Counter" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 100, 62 )
+size_override_stretch = true
+
+[node name="Label" type="Label" parent="Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "10"
+align = 1
+valign = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0 )
+flip_v = true
+texture = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
